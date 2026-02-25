@@ -24,7 +24,7 @@ public class GeminiAiServiceImpl implements GeminiAiService {
 
     private final CustomerService customerService;
     private String apiKey;
-    private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent";
+    static String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent";
 
     // Constructor Injection
     public GeminiAiServiceImpl(CustomerService customerService) {
@@ -34,13 +34,17 @@ public class GeminiAiServiceImpl implements GeminiAiService {
     @PostConstruct
     public void init() {
         // Get API key from environment variable
-        apiKey = System.getenv("GOOGLE_API_KEY");
+        apiKey = getEnvVariable();
         if (apiKey == null || apiKey.trim().isEmpty()) {
             System.err.println("WARNING: GOOGLE_API_KEY environment variable is not set!");
             System.err.println("The /askAgent endpoint will not work without this key.");
         } else {
             System.out.println("✅ GOOGLE_API_KEY loaded successfully");
         }
+    }
+
+    protected String getEnvVariable() {
+        return System.getenv("GOOGLE_API_KEY");
     }
 
     @Override

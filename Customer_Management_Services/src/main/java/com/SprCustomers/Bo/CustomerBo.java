@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "Spring_Customers", schema = "testschema")
+@Table(name = "Spring_Customers")
 public class CustomerBo {
 
 	@Id
